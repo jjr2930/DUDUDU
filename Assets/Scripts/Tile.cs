@@ -53,11 +53,10 @@ public class Tile : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     IEnumerator LoadTile()
-    {        
-        //
+    {     
+
         for ( int i = 0 ; i < trees.Count ; i++ )
         {
-            JLib.JResources.Load<Tree> 
             yield return null;
         }
         
