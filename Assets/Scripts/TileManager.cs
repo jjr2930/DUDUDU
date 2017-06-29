@@ -11,6 +11,12 @@ public static class TileManager
     static List<Tile> willShowTile = new List<Tile>();
     static List<Tile> beforeShowedTile = new List<Tile>();
 
+    public static void AddListenerProcess()
+    {
+        //스태틱 클래스는 제거할 필요가없음.. 이유는.. 애플리케이션의 생명주기와 같기 때문이다.
+        JLib.GlobalEventQueue.RegisterListener( EventNames.PlayerMove, ListenPlayerMove );
+    }
+
     public static void ListenPlayerMove( object param )
     {
         Vector3 pos = (Vector3)param;

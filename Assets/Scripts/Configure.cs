@@ -11,4 +11,6 @@ public class Configure : JLib.MonoSingle<Configure>
     /// 플레이어의 움직임 속도
     /// </summary>
     public float PlayerMoveSpeed = 10;
+
+    public float NETWORK_DEQUEUE_HOWMUCH = 3;
 }
