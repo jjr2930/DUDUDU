@@ -2,7 +2,7 @@
 using System.Collections;
 
 [System.Serializable]
-public class GameResource : NetworkObject
+public class GameResource : JLib.NetworkObject
 {
     [SerializeField]
     string spriteName = "";

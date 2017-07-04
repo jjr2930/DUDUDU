@@ -16,7 +16,7 @@
     <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
-    <UnityVersion>5.6.1p4</UnityVersion>
+    <UnityVersion>5.6.1p1</UnityVersion>
     <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
@@ -76,6 +76,12 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\JLib\AI\JISmartObject.cs" />
@@ -105,6 +111,8 @@
     <Compile Include="Assets\Plugins\JLib\LibEnums.cs" />
     <Compile Include="Assets\Plugins\JLib\LocalizeTextForUGUI.cs" />
     <Compile Include="Assets\Plugins\JLib\MonoSingle.cs" />
+    <Compile Include="Assets\Plugins\JLib\Network\NetworkObject.cs" />
+    <Compile Include="Assets\Plugins\JLib\Network\NetworkObjectManager.cs" />
     <Compile Include="Assets\Plugins\JLib\PCVirtualKeyMapper.cs" />
     <Compile Include="Assets\Plugins\JLib\ParameterPool.cs" />
     <Compile Include="Assets\Plugins\JLib\Paramters\CommonPopupEventParameter.cs" />
@@ -140,6 +148,29 @@
     <Compile Include="Assets\Plugins\JLib\UIExtension\Tooltip.cs" />
     <Compile Include="Assets\Plugins\JLib\UIExtension\TooltipEventCreator.cs" />
     <Compile Include="Assets\Plugins\JLib\V3Extension.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\AI.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\GridPlayer.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\GridPlayer2D.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\Lines.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\SearchPlayerAI.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\SetGrid.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\SimpleAI.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\SimpleAI2D.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\TDEnemy.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\TDManager.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scenes\Scripts\WaypointPlayer.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\DynamicMapUpdate.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\DynamicTDGridObject.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\Node.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\NodeSearch.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\Pathfinder.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\Pathfinder2D.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\Pathfinding.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\Pathfinding2D.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\QueuePath.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\WaypointListNode.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\WaypointNode.cs" />
+    <Compile Include="Assets\Plugins\Pathfinding\Scripts\WaypointPathfinder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

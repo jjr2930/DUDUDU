@@ -56,7 +56,8 @@ namespace JLib
         SetItemScrollRect,
         ShowEffect,
         AsycResourceLoad,
-        EnterSmartObject
+        EnterSmartObject,
+        NetworkEvent,
     }
 
     public enum VK_Enum
