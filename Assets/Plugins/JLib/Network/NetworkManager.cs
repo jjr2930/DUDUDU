@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using UnityEngine.Events;
 using System.Collections;
 using System.Threading;
 using System.Net;
@@ -32,7 +32,7 @@ namespace JLib
             socket.Send( cipherBytes );
         }
 
-        public static void ReqUntilResponse(ref System.ValueType value)
+        public static void ReqUntilResponse<T>( ref T value, UnityAction<object> successCallback, UnityAction<object> failCallback) where T : struct 
         {
             //전송
             byte[] plainBytes = CryptoGraphyHelper.GetByteFromStruct( value );

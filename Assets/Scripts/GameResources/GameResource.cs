@@ -7,21 +7,27 @@ using UnityEngine.Events;
 public class GameResource : JLib.NetworkObject, IInteractionObject
 {
     [SerializeField]
-    string spriteName = "";
+    protected string spriteName = "";
 
     [SerializeField]
-    string hitSoundName ="";
+    protected string hitSoundName = "";
 
-
-    bool IInteractionObject.Interact()
+    [SerializeField]
+    protected string actionName = "";
+    
+    public bool Interact( InteractParameterBase param )
     {
-        throw new NotImplementedException();
+        //not supported
+        return false;
     }
 
-    void IInteractionObject.InteractAsync( UnityAction<object> successCallback, UnityAction<object> failCallback )
+    public void InteractAsync( InteractParameterBase param, UnityAction<object> successCallback, UnityAction<object> failCallback )
     {
-        throw new NotImplementedException();
+        //get object from param.id;
+        //do action
+        Animator animator = null;
+        animator.SetTrigger( actionName );
+        
+        JLib.NetworkManager.ReqUntilResponse(ref param, successCallback, failCallback );
     }
-
-
 }
