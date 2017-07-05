@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1p1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -94,6 +96,7 @@
     <Compile Include="Assets\Plugins\JLib\Effect\BaseEffectExcutor.cs" />
     <Compile Include="Assets\Plugins\JLib\Effect\DecalEffectExcutor.cs" />
     <Compile Include="Assets\Plugins\JLib\Effect\EffectManager.cs" />
+    <Compile Include="Assets\Plugins\JLib\EncriptionHelper.cs" />
     <Compile Include="Assets\Plugins\JLib\EventTriggerDataForUGUI.cs" />
     <Compile Include="Assets\Plugins\JLib\GlobalConfigure.cs" />
     <Compile Include="Assets\Plugins\JLib\GlobalEventParameter.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="Assets\Plugins\JLib\LibEnums.cs" />
     <Compile Include="Assets\Plugins\JLib\LocalizeTextForUGUI.cs" />
     <Compile Include="Assets\Plugins\JLib\MonoSingle.cs" />
+    <Compile Include="Assets\Plugins\JLib\Network\NetworkManager.cs" />
     <Compile Include="Assets\Plugins\JLib\Network\NetworkObject.cs" />
     <Compile Include="Assets\Plugins\JLib\Network\NetworkObjectManager.cs" />
     <Compile Include="Assets\Plugins\JLib\PCVirtualKeyMapper.cs" />
