@@ -2,7 +2,7 @@
 using UnityEngine.AI;
 using System.Collections;
 
-public class PlayerNavAgnetController : Pathfinding2D
+public class PlayerNavAgnetController : MonoBehaviour
 {
     [SerializeField]
     LayerMask layerMask;
@@ -14,10 +14,7 @@ public class PlayerNavAgnetController : Pathfinding2D
         Stoped,
         Doing,
     }
-
     
-
-
     private void Awake()
     {
         JLib.GlobalEventQueue.RegisterListener( JLib.DefaultEvent.TouchDown, ListenPathfind );
@@ -30,10 +27,6 @@ public class PlayerNavAgnetController : Pathfinding2D
 
     private void Update()
     {
-        if(Path.Count > 0)
-        {
-            Move();
-        }
     }
 
     public void ListenPathfind(object param)
@@ -44,7 +37,7 @@ public class PlayerNavAgnetController : Pathfinding2D
         {
             if(hits[i].transform.gameObject.layer == layerMask)
             {
-                FindPath( this.transform.position, hits[i].point );
+
                 return;
             }
         }
