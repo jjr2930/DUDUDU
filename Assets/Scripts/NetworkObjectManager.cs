@@ -26,10 +26,6 @@ public static class NetworkObjectManager
         NetworkCommandBase p = param as NetworkCommandBase;
         long id = p.networkID;
         NetworkObject foundedObject = null;
-
-        if( networkObjects.TryGetValue( id, out foundedObject ) )
-        {
-            foundedObject.
-        }
+        
     }
 }

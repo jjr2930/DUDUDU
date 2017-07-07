@@ -56,7 +56,10 @@ namespace JLib
         SetItemScrollRect,
         ShowEffect,
         AsycResourceLoad,
-        EnterSmartObject
+        EnterSmartObject,
+        TouchDown,
+        Touching,
+        TouchEnd,
     }
 
     public enum VK_Enum
