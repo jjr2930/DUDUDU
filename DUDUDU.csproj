@@ -101,7 +101,6 @@
     <Compile Include="Assets\Scripts\GameResources\GameResource.cs" />
     <Compile Include="Assets\Scripts\GameResources\Lather.cs" />
     <Compile Include="Assets\Scripts\GameResources\Monster\MonsterBase.cs" />
-    <Compile Include="Assets\Scripts\GameResources\Monster\MonsterItemDropData.cs" />
     <Compile Include="Assets\Scripts\GameResources\Rock.cs" />
     <Compile Include="Assets\Scripts\GameResources\Tile.cs" />
     <Compile Include="Assets\Scripts\GameResources\Tree.cs" />
@@ -109,6 +108,7 @@
     <Compile Include="Assets\Scripts\IInteractionObject.cs" />
     <Compile Include="Assets\Scripts\InteractParameterBase.cs" />
     <Compile Include="Assets\Scripts\Managers\TileManager.cs" />
+    <Compile Include="Assets\Scripts\Player\NetworkPlayer\NetworkTransform.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerNavAgnetController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerTransformController.cs" />
   </ItemGroup>

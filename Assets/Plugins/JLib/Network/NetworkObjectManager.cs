@@ -6,13 +6,13 @@ using UnityEngine.Events;
 
 namespace JLib
 {
-    public static class NetworkObjectManagerBase 
+    public static class NetworkObjectManager 
     {
         const long GLOBAL_ID = long.MinValue;
         static Dictionary<long, Dictionary<Enum, UnityAction<object>>> listeners
         = new Dictionary<long, Dictionary<Enum, UnityAction<object>>>();
 
-        static NetworkObjectManagerBase()
+        static NetworkObjectManager()
         {
             GlobalEventQueue.RegisterListener( DefaultEvent.NetworkEvent, ListenNetworkMessage );
         }

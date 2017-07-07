@@ -3,6 +3,9 @@ using System.Collections;
 using System;
 using UnityEngine.Events;
 
+/// <summary>
+/// 게임에 사용되는 채집용 자원들의 기본 클래스
+/// </summary>
 [System.Serializable]
 public class GameResource : JLib.NetworkObject, IInteractionObject
 {

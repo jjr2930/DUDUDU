@@ -16,11 +16,20 @@ public enum EventNames
     /// </summary>
     Network_GameObjectShow,
     
+    /// <summary>
+    /// 넷플레이어의 위치
+    /// </summary>
+    Network_NPlayerPosition,
+    /// <summary>
+    /// 넷플레이어의 회전값
+    /// </summary>
+    Network_NPlayerRotation,
     #endregion
 
     PlayerMove,
     EnterTileCollider,
 
+    
 
 }
 

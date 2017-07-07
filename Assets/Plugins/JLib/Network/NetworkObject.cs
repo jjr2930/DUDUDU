@@ -26,11 +26,11 @@ namespace JLib
     public abstract class NetworkObject : JLib.JMonoBehaviour
     {
         [SerializeField]
-        long networkID = 0L;
+        protected long networkID = 0L;
 
         #region property
 
-        long NetworkID
+        public long NetworkID
         {
             get
             {
