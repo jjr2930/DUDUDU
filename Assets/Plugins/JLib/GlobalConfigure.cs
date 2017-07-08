@@ -15,11 +15,23 @@ namespace JLib
         public float DEFAULT_WEIGHT;
 
         #region pathfind configure
-        public WeightData[] weights = null;
+        public Dictionary<int, int> PATHFIND_WEIGHTS = new Dictionary<int, int>()
+        {
+            {4,3 },
+            {8,1},
+            {9,2 }
+        };
 
-        public float PATHFIND_GRID_SIZE = 1;
+        public int[] OBSTACLE_LAYER = new int[1]
+        {
+            10
+        };
+        
+        public float PATHFIND_GRID_SIZE = 0.1f;
         public int PATHFIND_GRID_WIDTH = 10;
         public int PATHFIND_GRID_HEIGHT = 10;
         #endregion  
     }
+
+
 }

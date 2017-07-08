@@ -4,63 +4,70 @@ using UnityEngine;
 
 namespace JLib.Pathfind2D
 {
+    [ExecuteInEditMode]
+    [System.Serializable]
     public class Node
     {
-        int gridX = 0;
-        int gridY = 0;
-
         /// <summary>
-        /// How much far from the startPosition
+        /// position of real position
         /// </summary>
-        int gCost = 0;
+        public Vector2 RealPosition { get; set; }
 
-        /// <summary>
-        /// how much far from the endposition
-        /// </summary>
-        int hCost = 0;
+        public int GCost { get; set; }
 
-        /// <summary>
-        /// cost's weight when calculate real cost : (gcost + hcost) * weight
-        /// </summary>
-        int weight = 1;
+        public int HCost { get; set; }
 
-        /// <summary>
-        /// can move to here?
-        /// </summary>
-        bool walkable = true;
+        public bool Walkable { get; set; }
 
-        public int GridX
-        {
-            get
-            {
-                return gridX;
-            }
-            set
-            {
-                gridX = value;
-            }
-        }
+        public int Weight { get; set; }
 
-        public int GridY
-        {
-            get
-            {
-                return gridY;
-            }
+        public int GridX { get; set; }
 
-            set
-            {
-                gridY = value;
-            }
-        }
+        public int GridY { get; set; }
+
 
         public float FCost
         {
             get
             {
-                return ( gCost + hCost ) * weight;
+                return GCost + HCost + (Weight - 1 );
             }
         }
 
+        public void CheckWalkable(ref Vector2 size , int nonWalkerbleLayers)
+        {
+            Collider2D[] hits = Physics2D.OverlapBoxAll( RealPosition, size, 0 );
+            if ( hits == null
+               || hits.Length == 0)
+            {   
+                Walkable = false;
+            }
+
+            Walkable = !HaveNonWalkable( hits, nonWalkerbleLayers );
+        }
+
+        bool HaveNonWalkable(Collider2D[] colliders , int nonWalkable)
+        {
+            /*
+             * bit caculate , is this colliders layer nonWalkable ?
+             * a. collider layer bit = 0001;
+             * b. nonWalkble Layer bit = 1001;
+             * a | b = 0001
+             * a | b == a
+             * 
+             * a. collider layerBit = 0100
+             * b. nonWalkable layerbit = 1001
+             * a | b = 0000;
+            */
+            for ( int i = 0 ; i < colliders.Length ; i++ )
+            {
+                Collider2D collider = colliders[i];
+                if ( ( collider.gameObject.layer & nonWalkable ) == 0x00 )
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
