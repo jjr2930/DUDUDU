@@ -72,7 +72,6 @@ namespace JLib.Pathfind2D
                     float realX = startX + size.x * x;
                     float realY = startY + size.y * y;
                     nodes[y, x].RealPosition = new Vector2( realX, realY );
-
                     nodes[y, x].CheckWalkable( ref size, nonWalkable.value );                    
                 }
             }

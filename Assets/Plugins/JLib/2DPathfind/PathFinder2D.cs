@@ -2,29 +2,94 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 
 namespace JLib.Pathfind2D
 {
+    [System.Serializable]
+    public class WeightData
+    {
+        public LayerMask layer;
+        public int weight;
+    }
+
     [ExecuteInEditMode]
     [RequireComponent(typeof(JLib.Pathfind2D.Grid))]
+    
     public class PathFinder2D : MonoBehaviour
     {
-        
+        public WeightData[] weightData;
+        /// <summary>
+        /// key : layer, int : weight
+        /// </summary>
+        Dictionary<int, int> dicWeight;
         Grid grid = null;
-      
+        public List<Node> openNode = new List<Node>();
         private void Start()
         {
+            dicWeight.Clear();
+            for ( int i = 0 ; i < weightData.Length ; i++ )
+            {
+                dicWeight.Add( weightData[i].layer.value, weightData[i].weight );
+            }
             grid = GetComponent<Grid>();
-            //SetWalkable();
         }
 
+        public void PathFind(Vector2 startPosition, Vector2 endPosition, UnityAction<Vector3[], bool> callback)
+        {
+            float originStartX = transform.position.x - ( grid.size.x * grid.width ) / 2f;
+            float originStartY = transform.position.y - ( grid.size.y * grid.height ) / 2f;
+
+            int startPositionIndexX = (int)(startPosition.x - originStartX / grid.size.x);
+            int startPositionIndexY = (int)(startPosition.y - originStartY / grid.size.y);
+
+            int endPositionIndexX = (int)(endPosition.x - originStartX / grid.size.x);
+            int endPositionIndexY = (int)(endPosition.y - originStartY / grid.size.y);
+
+            Node startNode = grid.Nodes[startPositionIndexY , startPositionIndexX];
+            Node endNode = grid.Nodes[endPositionIndexX, endPositionIndexY];
+        }
+
+        public Vector2[] Routine(Node startNode , Node endNode)
+        {
+
+            //caculate neighbou's cost
+            for ( int y = -1 ; y <= 1 ; y++ )
+            {
+                for ( int x = -1 ; x <= 1 ; x++ )
+                {
+                    //check outof range
+                    if(startNode.GridX + x < 0 || startNode.GridX + x >= grid.width
+                        || startNode.GridY + y < 0 || startNode.GridY + y >= grid.height)
+                    {
+                        continue;
+                    }
+
+                    Node neighbour = grid.Nodes[ y , x ];
+                    neighbour.GCost = GetDistance( startNode, neighbour );
+                    neighbour.HCost = GetDistance( neighbour, endNode );
+                }
+            }
+        }
+
+        int GetDistance( Node nodeA, Node nodeB )
+        {
+            int width = Mathf.Abs(nodeB.GridX - nodeA.GridX);
+            int height = Mathf.Abs(nodeB.GridY - nodeA.GridY);
+            int biggerEdge = (width > height) ? width : height;
+            //대각선의 길이
+            int diagonal = (width > height) ? width : height;
+            biggerEdge -= diagonal;
+
+            return diagonal * 14 + biggerEdge * 10;
+        }
 
         //public void RefreshAllNode()
         //{
         //    RefreshNodeUsingSIze( 0, 0, width, height );
         //}
 
-       
+
 
         //public void ListenAddObject( object param )
         //{

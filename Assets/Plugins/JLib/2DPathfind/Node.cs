@@ -13,8 +13,14 @@ namespace JLib.Pathfind2D
         /// </summary>
         public Vector2 RealPosition { get; set; }
 
+        /// <summary>
+        /// from start
+        /// </summary>
         public int GCost { get; set; }
 
+        /// <summary>
+        /// from end
+        /// </summary>
         public int HCost { get; set; }
 
         public bool Walkable { get; set; }
