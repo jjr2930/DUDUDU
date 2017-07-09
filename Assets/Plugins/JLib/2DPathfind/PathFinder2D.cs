@@ -14,7 +14,7 @@ namespace JLib.Pathfind2D
         public int weight;
     }
 
-    [ExecuteInEditMode]
+    //[ExecuteInEditMode]
     [RequireComponent(typeof(JLib.Pathfind2D.Grid))]
     
     public class PathFinder2D : MonoBehaviour
@@ -44,6 +44,23 @@ namespace JLib.Pathfind2D
             }
         }
 
+        private void Start()
+        {
+            GlobalEventQueue.RegisterListener( DefaultEvent.PathObstacleMove, ListenMoveObstacle );
+
+            dicWeight.Clear();
+            for ( int i = 0 ; i < weightData.Length ; i++ )
+            {
+                dicWeight.Add( weightData[i].layer.value, weightData[i].weight );
+            }
+            grid = GetComponent<Grid>();
+        }
+
+        private void OnDestroy()
+        {
+            GlobalEventQueue.RemoveListener( DefaultEvent.PathObstacleMove, ListenMoveObstacle );
+        }
+
         private void OnDrawGizmos()
         {
             if(null != path
@@ -51,11 +68,11 @@ namespace JLib.Pathfind2D
             {
                 //draw fistPoint
                 //creat point
-                Gizmos.color = Color.black;
+                Gizmos.color = Color.green;
                 Gizmos.DrawSphere( path[0], 0.1f );
                 for ( int i = 1 ; i< path.Length ;i++ )
                 {
-                    Gizmos.color = Color.black;
+                    Gizmos.color = Color.red;
                     Gizmos.DrawSphere( path[i], 0.1f );
                     Gizmos.DrawLine( path[i - 1], path[i] );
                 }
@@ -67,14 +84,13 @@ namespace JLib.Pathfind2D
             path = paths;
         }
 
-        private void Start()
+        /// <summary>
+        /// fixme : it should be optimized
+        /// </summary>
+        /// <param name="param"></param>
+        private void ListenMoveObstacle(object param)
         {
-            dicWeight.Clear();
-            for ( int i = 0 ; i < weightData.Length ; i++ )
-            {
-                dicWeight.Add( weightData[i].layer.value, weightData[i].weight );
-            }
-            grid = GetComponent<Grid>();
+            grid.SetWalkable();
         }
 
         public void PathFind(Vector2 startPosition, Vector2 endPosition, UnityAction<Vector2[], bool> callback)
@@ -133,7 +149,7 @@ namespace JLib.Pathfind2D
                     //currentNode.GridX, currentNode.GridY );
                 if(currentNode == endNode)
                 {
-                    result = GetSimplePath( currentNode );
+                    result = GetSimplePath( startNode , endNode );
                     return true;
                 }
 
@@ -159,41 +175,53 @@ namespace JLib.Pathfind2D
             return shortestNode;
         }
 
-        Vector2[] GetSimplePath(Node dest)
+        Vector2[] GetSimplePath( Node startNode, Node endNode )
         {
-            //000
-            //**0
+            List<Vector2> pathList = new List<Vector2>();
+            List<Vector2> simplePath = new List<Vector2>();
+            Node currentNode = endNode;
+            for ( ; currentNode != startNode; )
+            {
+                pathList.Add( currentNode.WorldPosition );
+                currentNode = currentNode.Parent;
+            }
+            //add last
+            pathList.Add( currentNode.WorldPosition );
             int beforeDeltaXSign = 0;
             int beforeDeltaYSign = 0;
 
             int nextDeltaXSign = 0;
             int nextDeltaYSign = 0;
 
-            List<Vector2> pathList = new List<Vector2>();
-            
+
+
             /*
              * 000
              * **000
              * ****0
              * 0 : pathpoint
              */
-            //for ( int i = 1 ; i < pathList.Count - 1 ; i++ )
-            //{
-            //    beforeDeltaXSign = Math.Sign( pathList[i].x - pathList[i - 1].x );
-            //    beforeDeltaYSign = Math.Sign( pathList[i].y - pathList[i - 1].y );
+            //addFirst 
+            simplePath.Add( pathList[0] );
+            for ( int i = 1 ; i < pathList.Count - 1 ; i++ )
+            {
+                beforeDeltaXSign = Math.Sign( pathList[i].x - pathList[i - 1].x );
+                beforeDeltaYSign = Math.Sign( pathList[i].y - pathList[i - 1].y );
 
-            //    nextDeltaXSign = Math.Sign( pathList[i + 1].x - pathList[i].x );
-            //    nextDeltaYSign = Math.Sign( pathList[i + 1].y - pathList[i].y );
+                nextDeltaXSign = Math.Sign( pathList[i + 1].x - pathList[i].x );
+                nextDeltaYSign = Math.Sign( pathList[i + 1].y - pathList[i].y );
 
-            //    //if sign is same, it need not contain to pathlist;
-            //    if ( beforeDeltaXSign == nextDeltaXSign
-            //        && beforeDeltaYSign == nextDeltaYSign )
-            //    {
-            //        pathList.RemoveAt( i );
-            //    }
-            //}
+                //if sign is same, it need not contain to pathlist;
+                if ( beforeDeltaXSign != nextDeltaXSign
+                    || beforeDeltaYSign != nextDeltaYSign )
+                {
+                    simplePath.Add( pathList[i] );
+                }
+            }
+            //addLast
+            simplePath.Add( pathList[pathList.Count - 1] );
 
-            return pathList.ToArray();
+            return simplePath.ToArray();
         }
 
         /// <summary>
@@ -221,8 +249,6 @@ namespace JLib.Pathfind2D
                     //check is nonvalidate neighbour
                     if ( !isWalkable || isContainClose )
                     {
-                        //Debug.LogFormat( "Nonvalidate neighbour, Nodes[{0},{1}], walkable : {2} isContainClosed :{3} ",
-                            //y, x, isWalkable, isContainClose );
                         continue;
                     }
 
@@ -232,17 +258,13 @@ namespace JLib.Pathfind2D
                     if(neighbour.GCost < neighbourNewGCost
                         && openNodes.Contains( neighbour ) )
                     {
-                        //Debug.LogFormat( "nodes[{0},{1}]'s gcost is smaller then new gCost, old : {2}, new :{3}",
-                            //y, x, neighbour.GCost, neighbourNewGCost );
                         continue;
                     }
 
-
-                    //Debug.LogFormat( "Find Neighbour = y: {0} x: {0}", y, x );
+                    
                     neighbour.GCost = neighbourNewGCost;
                     neighbour.HCost = GetDistance( neighbour, endNode );
                     neighbour.Parent = currentNode;
-                    //neighbourNodes.Add( neighbour );
                     if ( !openNodes.Contains( neighbour ) )
                     {
                         openNodes.Add( neighbour );

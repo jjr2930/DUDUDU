@@ -60,6 +60,11 @@ namespace JLib
         TouchDown,
         Touching,
         TouchEnd,
+
+        #region event for pathfind
+        PathObstacleMove,
+
+        #endregion
     }
 
     public enum VK_Enum

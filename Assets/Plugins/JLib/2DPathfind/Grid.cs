@@ -85,8 +85,6 @@ namespace JLib.Pathfind2D
                 }
             }
         }
-
-
         public void SetWalkable()
         {
             var enumerator = Nodes.GetEnumerator();

@@ -83,6 +83,7 @@
     <Compile Include="Assets\Plugins\JLib\2DPathfind\Grid.cs" />
     <Compile Include="Assets\Plugins\JLib\2DPathfind\Node.cs" />
     <Compile Include="Assets\Plugins\JLib\2DPathfind\PathFinder2D.cs" />
+    <Compile Include="Assets\Plugins\JLib\2DPathfind\PathMovableObstacle.cs" />
     <Compile Include="Assets\Plugins\JLib\AI\JISmartObject.cs" />
     <Compile Include="Assets\Plugins\JLib\App.cs" />
     <Compile Include="Assets\Plugins\JLib\BaseCreateEventForUGUI.cs" />
