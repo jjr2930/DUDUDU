@@ -11,7 +11,7 @@ namespace JLib.Pathfind2D
         /// <summary>
         /// position of real position
         /// </summary>
-        public Vector2 RealPosition { get; set; }
+        public Vector2 WorldPosition { get; set; }
 
         /// <summary>
         /// from start
@@ -31,7 +31,7 @@ namespace JLib.Pathfind2D
 
         public int GridY { get; set; }
 
-
+        public Node Parent { get; set; }
         public float FCost
         {
             get
@@ -42,17 +42,18 @@ namespace JLib.Pathfind2D
 
         public void CheckWalkable(ref Vector2 size , int nonWalkerbleLayers)
         {
-            Collider2D[] hits = Physics2D.OverlapBoxAll( RealPosition, size, 0 );
+            Collider2D[] hits = Physics2D.OverlapBoxAll( WorldPosition, size, 0 );
             if ( hits == null
                || hits.Length == 0)
             {   
                 Walkable = false;
+                return;
             }
 
-            Walkable = !HaveNonWalkable( hits, nonWalkerbleLayers );
+            Walkable = IsWalkable( hits, nonWalkerbleLayers );
         }
 
-        bool HaveNonWalkable(Collider2D[] colliders , int nonWalkable)
+        bool IsWalkable(Collider2D[] colliders , int nonWalkable)
         {
             /*
              * bit caculate , is this colliders layer nonWalkable ?
@@ -68,12 +69,13 @@ namespace JLib.Pathfind2D
             for ( int i = 0 ; i < colliders.Length ; i++ )
             {
                 Collider2D collider = colliders[i];
-                if ( ( collider.gameObject.layer & nonWalkable ) == 0x00 )
+                int layerValue = LayerMask.GetMask(LayerMask.LayerToName( collider.gameObject.layer));
+                if ( ( layerValue & nonWalkable ) == layerValue)
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
     }
 }

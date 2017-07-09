@@ -40,7 +40,7 @@ namespace JLib.Pathfind2D
 
             float startX = transform.position.x - ( size.x * width ) / 2f;
             float startY = transform.position.y - ( size.y * height ) / 2f;
-            
+
             for ( int y = 0 ; y < height ; y++ )
             {
                 for ( int x = 0 ; x < width ; x++ )
@@ -48,8 +48,17 @@ namespace JLib.Pathfind2D
                     float realX = startX + x * size.x;
                     float realY = startY + y * size.y;
 
-                    Gizmos.color = ( Nodes[y, x].Walkable ) ? new Color( 0, 0, 0, 0.5f ) : new Color( 1, 0, 0, 0.5f );
-                    Gizmos.DrawCube( new Vector3( realX, realY, 0f ), new Vector3( size.x, size.y, 0f ) );
+                    if ( nodes[y, x].Walkable )
+                    {
+                        Gizmos.color = new Color( 0, 0, 0, 0.5f );
+                        Gizmos.DrawWireCube( new Vector3( realX, realY, 0f ), new Vector3( size.x, size.y, 0f ) );
+                    }
+
+                    else
+                    {
+                        Gizmos.color = new Color( 1, 0, 0, 0.5f );
+                        Gizmos.DrawCube( new Vector3( realX, realY, 0f ), new Vector3( size.x, size.y, 0f ) );
+                    }
                 }
             }
         }
@@ -71,7 +80,7 @@ namespace JLib.Pathfind2D
 
                     float realX = startX + size.x * x;
                     float realY = startY + size.y * y;
-                    nodes[y, x].RealPosition = new Vector2( realX, realY );
+                    nodes[y, x].WorldPosition = new Vector2( realX, realY );
                     nodes[y, x].CheckWalkable( ref size, nonWalkable.value );                    
                 }
             }
