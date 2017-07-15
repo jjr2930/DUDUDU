@@ -29,7 +29,9 @@ public enum EventNames
     PlayerMove,
     EnterTileCollider,
 
-    
-
+    /// <summary>
+    /// 손가락 하나로 화면 터치
+    /// </summary>
+    Peek
 }
 

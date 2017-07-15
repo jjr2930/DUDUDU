@@ -57,6 +57,17 @@ namespace JLib
         ShowEffect,
         AsycResourceLoad,
         EnterSmartObject,
+        TouchDown,
+        Touching,
+        TouchEnd,
+
+        #region event for pathfind
+        PathObstacleMove,
+        PeekPathfindPosition,
+        ReqPathfind,
+
+        #endregion
+        EnterSmartObject,
         NetworkEvent,
     }
 
