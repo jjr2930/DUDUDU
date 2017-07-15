@@ -28,7 +28,7 @@ namespace JLib.Pathfind2D
         Dictionary<int, int> dicWeight = new Dictionary<int, int>();
         Grid grid = null;
 
-        List<Node> openNodes = new List<Node>();
+        BinarySearchHeap<Node> openNodes;
         HashSet<Node> closeNodes = new HashSet<Node>();
         Node currentNode = null;
 
@@ -101,7 +101,7 @@ namespace JLib.Pathfind2D
             Node startNode = grid.Nodes[startPositionIndexY , startPositionIndexX];
             Node endNode = grid.Nodes[endPositionIndexY, endPositionIndexX];
 
-            openNodes.Clear();
+            openNodes = new BinarySearchHeap<Node>( grid.MaxSize );
             closeNodes.Clear();
 
             startNode.GCost = 0;
@@ -131,8 +131,7 @@ namespace JLib.Pathfind2D
                     return false;
                 }
 
-                currentNode = GetShortestNodeFromOpenNodes();
-                openNodes.Remove( currentNode );
+                currentNode = openNodes.RemoveFirst();
                 closeNodes.Add( currentNode );
 
                 //Debug.LogFormat( "current node index : x : {0} , y:{0}",
@@ -148,21 +147,6 @@ namespace JLib.Pathfind2D
 
             result = null;
             return false;
-        }
-
-        Node GetShortestNodeFromOpenNodes()
-        {
-            Node shortestNode = openNodes[0];
-            for(int i= 1 ; i<openNodes.Count ; i++ )
-            {
-                if ( shortestNode.FCost > openNodes[i].FCost
-                    || ( shortestNode.FCost == openNodes[i].FCost && shortestNode.HCost > openNodes[i].HCost ) )
-                {
-                    shortestNode = openNodes[i];
-                }
-            }
-
-            return shortestNode;
         }
 
         Vector2[] GetSimplePath( Node startNode, Node endNode )
@@ -257,6 +241,10 @@ namespace JLib.Pathfind2D
                     if ( !openNodes.Contains( neighbour ) )
                     {
                         openNodes.Add( neighbour );
+                    }
+                    else
+                    {
+                        openNodes.UpdateItem( neighbour );
                     }
 
                 }

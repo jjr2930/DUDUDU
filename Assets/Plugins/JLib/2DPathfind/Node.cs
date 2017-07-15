@@ -6,7 +6,7 @@ namespace JLib.Pathfind2D
 {
     [ExecuteInEditMode]
     [System.Serializable]
-    public class Node
+    public class Node : IHeapItem<Node>
     {
         /// <summary>
         /// position of real position
@@ -32,12 +32,25 @@ namespace JLib.Pathfind2D
         public int GridY { get; set; }
 
         public Node Parent { get; set; }
+
+        public int HeapIndex { get; set; }
         public float FCost
         {
             get
             {
                 return GCost + HCost + (Weight - 1 );
             }
+        }
+
+        public int CompareTo(Node other)
+        {
+            int compare = FCost.CompareTo(other.FCost);
+            if(compare == 0)
+            {
+                compare = HCost.CompareTo( other.HCost );
+            }
+
+            return -compare;
         }
 
         public void CheckWalkable(ref Vector2 size , int nonWalkerbleLayers)

@@ -29,6 +29,14 @@ namespace JLib.Pathfind2D
             }
         }
 
+        public int MaxSize
+        {
+            get
+            {
+                return width * height;
+            }
+        }
+
         private void Awake()
         {
             CreateGrid( width, height );
@@ -95,6 +103,7 @@ namespace JLib.Pathfind2D
                 cur.CheckWalkable( ref size, nonWalkable.value );
             }
         }
+
     }
     
 }

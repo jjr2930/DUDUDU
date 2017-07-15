@@ -83,15 +83,16 @@
     <Compile Include="Assets\Plugins\JLib\2DPathfind\Agent.cs" />
     <Compile Include="Assets\Plugins\JLib\2DPathfind\EventDataStructures.cs" />
     <Compile Include="Assets\Plugins\JLib\2DPathfind\Grid.cs" />
+    <Compile Include="Assets\Plugins\JLib\2DPathfind\MovableObstacle.cs" />
     <Compile Include="Assets\Plugins\JLib\2DPathfind\Node.cs" />
     <Compile Include="Assets\Plugins\JLib\2DPathfind\PathFinder2D.cs" />
-    <Compile Include="Assets\Plugins\JLib\2DPathfind\MovableObstacle.cs" />
     <Compile Include="Assets\Plugins\JLib\AI\JISmartObject.cs" />
     <Compile Include="Assets\Plugins\JLib\App.cs" />
     <Compile Include="Assets\Plugins\JLib\BaseCreateEventForUGUI.cs" />
     <Compile Include="Assets\Plugins\JLib\BasePoolManager.cs" />
     <Compile Include="Assets\Plugins\JLib\BaseResourcesLoader.cs" />
     <Compile Include="Assets\Plugins\JLib\BundleResourcesLoader.cs" />
+    <Compile Include="Assets\Plugins\JLib\DataStructrue\BinarySearchHeap.cs" />
     <Compile Include="Assets\Plugins\JLib\EditorResourcesLoader.cs" />
     <Compile Include="Assets\Plugins\JLib\Effect\BaseEffectExcutor.cs" />
     <Compile Include="Assets\Plugins\JLib\Effect\DecalEffectExcutor.cs" />
