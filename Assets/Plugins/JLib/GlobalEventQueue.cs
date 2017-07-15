@@ -12,6 +12,7 @@ namespace JLib
     /// </summary>
     public class GlobalEventQueue : MonoSingle<GlobalEventQueue>
     {
+        public const long GlobalID = long.MinValue;
         Queue<GlobalEventParameter> eventQueue = new Queue<GlobalEventParameter>();
         Dictionary<object, UnityAction<object>> listeners = new Dictionary<object, UnityAction<object>>();
 

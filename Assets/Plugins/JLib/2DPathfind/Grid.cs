@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace JLib.Pathfind2D
 {
+    [AddComponentMenu("Pathfind2D/Grid")]
     [ExecuteInEditMode]
     [System.Serializable]
     public class Grid : JLib.JMonoBehaviour

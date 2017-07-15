@@ -28,7 +28,10 @@ public class MousePeeker : MonoBehaviour
 
             if ( hit.Length > 0 )
             {
-                JLib.GlobalEventQueue.EnQueueEvent( JLib.DefaultEvent.TouchDown, hit );
+                JLib.Pathfind2D.PeekPointParameter param = JLib.ParameterPool.GetParameter<JLib.Pathfind2D.PeekPointParameter>();
+                param.instanceID = JLib.GlobalEventQueue.GlobalID;
+                param.peekPoint = hit[0].point; 
+                JLib.GlobalEventQueue.EnQueueEvent( JLib.DefaultEvent.PeekPathfindPosition, param );
             }
         }
         //switch ( Input.touchCount )

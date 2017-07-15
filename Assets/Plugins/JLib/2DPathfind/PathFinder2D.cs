@@ -15,16 +15,13 @@ namespace JLib.Pathfind2D
     }
 
     //[ExecuteInEditMode]
+    [AddComponentMenu("Pathfind2D/Pathfinder")]
     [RequireComponent(typeof(JLib.Pathfind2D.Grid))]
     
     public class PathFinder2D : MonoBehaviour
     {
         public WeightData[] weightData;
-
-        public Transform startPosition;
-
-        public Transform endPosition;
-
+        
         /// <summary>
         /// key : layer, int : weight
         /// </summary>ㅣ
@@ -36,18 +33,11 @@ namespace JLib.Pathfind2D
         Node currentNode = null;
 
         Vector2[] path = null;
-        private void OnGUI()
-        {
-            if(GUILayout.Button("find"))
-            {
-                PathFind( startPosition.position, endPosition.position, TestCallback );
-            }
-        }
 
         private void Start()
         {
             GlobalEventQueue.RegisterListener( DefaultEvent.PathObstacleMove, ListenMoveObstacle );
-
+            GlobalEventQueue.RegisterListener( DefaultEvent.ReqPathfind, ListenReqPathfind );
             dicWeight.Clear();
             for ( int i = 0 ; i < weightData.Length ; i++ )
             {
@@ -78,11 +68,6 @@ namespace JLib.Pathfind2D
                 }
             }
         }
-        public void TestCallback(Vector2[] paths, bool result)
-        {
-            Debug.Log( "pathfind : " + result );
-            path = paths;
-        }
 
         /// <summary>
         /// fixme : it should be optimized
@@ -93,6 +78,11 @@ namespace JLib.Pathfind2D
             grid.SetWalkable();
         }
 
+        public void ListenReqPathfind(object param)
+        {
+            ReqPathfind p = param as ReqPathfind;
+            PathFind( p.startPosition, p.endPosition, p.callback );
+        }
         public void PathFind(Vector2 startPosition, Vector2 endPosition, UnityAction<Vector2[], bool> callback)
         {
             Vector2[] result = null;
@@ -219,8 +209,7 @@ namespace JLib.Pathfind2D
                 }
             }
             //addLast
-            simplePath.Add( pathList[pathList.Count - 1] );
-
+            simplePath.Add( pathList[pathList.Count - 1] ); 
             return simplePath.ToArray();
         }
 

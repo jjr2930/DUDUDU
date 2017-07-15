@@ -63,6 +63,8 @@ namespace JLib
 
         #region event for pathfind
         PathObstacleMove,
+        PeekPathfindPosition,
+        ReqPathfind,
 
         #endregion
     }
