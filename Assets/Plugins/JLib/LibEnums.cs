@@ -67,7 +67,6 @@ namespace JLib
         ReqPathfind,
 
         #endregion
-        EnterSmartObject,
         NetworkEvent,
     }
 
